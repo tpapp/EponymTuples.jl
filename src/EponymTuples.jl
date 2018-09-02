@@ -15,9 +15,14 @@ end
 """
     @eponymtuple(a, b::T, ...)
 
-Expands to form `((a, b)::NamedTuple{(:a, :b), <: Tuple{Any, T}})`.
+Expands to form like `((a, b)::NamedTuple{(:a, :b), <: Tuple{Any, T}})`, using
+the variable names *both* for the `NamedTuple` and deconstruction in the
+function arguments.
 
-Example:
+Valid arguments are variable names, or names followed by a type specifier (when
+missing, `Any` is used).
+
+# Example
 
 ```jldoctest
 julia> using EponymTuples
