@@ -25,5 +25,5 @@ It is pretty lightweight: `@eponymtuple` is the only thing exported; and the pac
 
 The package is not yet registered, install with
 ```julia
-pkg> add https://github.com/tpapp/EponymTuples.jl.git
+pkg> add https://github.com/tpapp/EponymTuples.jl
 ```
