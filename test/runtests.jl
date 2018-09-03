@@ -21,6 +21,9 @@ end
 
 bar(@eponymargs(z::Bar{T})) where {T <: Real} = z.x
 
+pack1(a) = @eponymtuple(a, b = 2)
+pack2(a, b) = @eponymtuple(a, b)
+
 end
 
 @testset "dispatch" begin
@@ -31,4 +34,14 @@ end
 
     @test TestModule.bar((z = TestModule.Bar(2), )) == 2
     @test_throws MethodError TestModule.bar((z = TestModule.Bar("a fish"), ))
+end
+
+@testset "eponymtuple expansion" begin
+    @test :((a = a, b = b)) == macroexpand(Main, :(@eponymtuple(a, b)))
+    @test :((a = a, b = 2)) == macroexpand(Main, :(@eponymtuple(a, b = 2)))
+end
+
+@testset "eponymtuple return values" begin
+    @test TestModule.pack1(9.0) ≡ (a = 9.0, b = 2)
+    @test TestModule.pack2(42, "a fish") ≡ (a = 42, b = "a fish")
 end
