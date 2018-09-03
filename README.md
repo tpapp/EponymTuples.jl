@@ -13,15 +13,17 @@ Allows replacing
 
 ```julia
 f((a, b)::NamedTuple{(:a, :b), <: Tuple{Any, Int}}) = ...
+(a = a, b = b, c = 3)
 ```
 
 with
 
 ```julia
-f(@eponymtuple(a, b::Int)) = ...
+f(@eponymargs(a, b::Int)) = ...
+@eponymtuple(a, b, c = 3)
 ```
 
-It is pretty lightweight: `@eponymtuple` is the only thing exported; and the package has no dependencies.
+It is pretty lightweight: `@eponymargs` and `@eponymtuple` are the only symbols exported; and the package has no dependencies.
 
 The package is not yet registered, install with
 ```julia
