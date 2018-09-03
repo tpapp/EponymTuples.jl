@@ -39,6 +39,7 @@ end
 @testset "eponymtuple expansion" begin
     @test :((a = a, b = b)) == macroexpand(Main, :(@eponymtuple(a, b)))
     @test :((a = a, b = 2)) == macroexpand(Main, :(@eponymtuple(a, b = 2)))
+    @test_throws LoadError macroexpand(Main, :(@eponymtuple(a, bogus::T)))
 end
 
 @testset "eponymtuple return values" begin
