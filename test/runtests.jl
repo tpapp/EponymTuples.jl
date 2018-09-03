@@ -12,14 +12,14 @@ module TestModule               # wrap in a module to check escaping
 
 using EponymTuples
 
-foo(@eponymtuple(a, b)) = (:generic, a, b)
-foo(@eponymtuple(a::Int, b::Int)) = (:ints, a, b)
+foo(@eponymargs(a, b)) = (:generic, a, b)
+foo(@eponymargs(a::Int, b::Int)) = (:ints, a, b)
 
 struct Bar{T}
     x::T
 end
 
-bar(@eponymtuple(z::Bar{T})) where {T <: Real} = z.x
+bar(@eponymargs(z::Bar{T})) where {T <: Real} = z.x
 
 end
 

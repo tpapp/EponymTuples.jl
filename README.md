@@ -18,10 +18,10 @@ f((a, b)::NamedTuple{(:a, :b), <: Tuple{Any, Int}}) = ...
 with
 
 ```julia
-f(@eponymtuple(a, b::Int)) = ...
+f(@eponymargs(a, b::Int)) = ...
 ```
 
-It is pretty lightweight: `@eponymtuple` is the only thing exported; and the package has no dependencies.
+It is pretty lightweight: `@eponymargs` is the only thing exported; and the package has no dependencies.
 
 The package is not yet registered, install with
 ```julia

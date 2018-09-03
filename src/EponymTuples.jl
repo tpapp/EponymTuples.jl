@@ -1,6 +1,6 @@
 module EponymTuples
 
-export @eponymtuple
+export @eponymargs
 
 var_and_type(ex::Symbol) = ex => Any
 
@@ -13,7 +13,7 @@ function var_and_type(ex::Expr)
 end
 
 """
-    @eponymtuple(a, b::T, ...)
+    @eponymargs(a, b::T, ...)
 
 Expands to form like `((a, b)::NamedTuple{(:a, :b), <: Tuple{Any, T}})`, using
 the variable names *both* for the `NamedTuple` and deconstruction in the
@@ -27,14 +27,14 @@ missing, `Any` is used).
 ```jldoctest
 julia> using EponymTuples
 
-julia> foo(@eponymtuple(a, b)) = a + b
+julia> foo(@eponymargs(a, b)) = a + b
 foo (generic function with 1 method)
 
 julia> foo((a = 1, b = 2))
 3
 ```
 """
-macro eponymtuple(args...)
+macro eponymargs(args...)
     vars_and_types = map(var_and_type, args)
     vars = first.(vars_and_types)
     types = map(esc ∘ last, (vars_and_types))
