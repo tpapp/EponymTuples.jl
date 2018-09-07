@@ -13,6 +13,7 @@ Allows replacing
 
 ```julia
 f((a, b)::NamedTuple{(:a, :b), <: Tuple{Any, Int}}) = ...
+
 (a = a, b = b, c = 3)
 ```
 
@@ -20,6 +21,7 @@ with
 
 ```julia
 f(@eponymargs(a, b::Int)) = ...
+
 @eponymtuple(a, b, c = 3)
 ```
 
