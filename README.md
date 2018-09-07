@@ -25,7 +25,7 @@ f(@eponymargs(a, b::Int)) = ...
 
 It is pretty lightweight: `@eponymargs` and `@eponymtuple` are the only symbols exported; and the package has no dependencies.
 
-The package is not yet registered, install with
+The package is registered, install with
 ```julia
-pkg> add https://github.com/tpapp/EponymTuples.jl
+pkg> add EponymTuples
 ```
