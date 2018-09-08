@@ -12,6 +12,18 @@ function var_and_type(ex::Expr)
     end
 end
 
+function check_duplicate_vars(itr)
+    seen = Set{Symbol}()
+    for symbol in itr
+        if symbol ∈ seen
+            error(ArgumentError("duplicate variable name $(symbol)"))
+        else
+            push!(seen, symbol)
+        end
+    end
+    nothing
+end
+
 """
     @eponymargs(a, b::T, ...)
 
@@ -37,6 +49,7 @@ julia> foo((a = 1, b = 2))
 macro eponymargs(args...)
     vars_and_types = map(var_and_type, args)
     vars = first.(vars_and_types)
+    check_duplicate_vars(vars)
     types = map(esc ∘ last, (vars_and_types))
     :(($(map(esc, vars)...),)::$(esc(:NamedTuple)){$(vars),
                                                    <: $(esc(:Tuple)){$(types...)}})

@@ -46,3 +46,11 @@ end
     @test TestModule.pack1(9.0) ≡ (a = 9.0, b = 2)
     @test TestModule.pack2(42, "a fish") ≡ (a = 42, b = "a fish")
 end
+
+@testset "non-unique varnames" begin
+    # just checking that these are caught by Julia
+    @test_throws ErrorException @eval let a=1; @eponymtuple(a, a) end
+    @test_throws ErrorException @eval let a=1; @eponymtuple(a, a = 1) end
+    # these pass through the language at the moment
+    @test_throws LoadError @eval f(@eponymargs(a, a)) = 2*a
+end
